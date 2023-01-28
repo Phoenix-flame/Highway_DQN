@@ -17,11 +17,11 @@ agent = dqnAgent(env=env, config={'log': True, 'memory_type':'per', 'scheduler_t
 agent.reset()
 
 ## Load Learned Model
-agent.load(idx='_test_per')
+# agent.load(idx='_test_per')
 
 
 ## Train From Scratch
-# agent.learn(1000)
+agent.learn(1000)
 # agent.save(idx='_test')
 
 

@@ -53,7 +53,6 @@ class PrioritizedReplayMemory(Memory):
         segment = self.tree.total / batch_size
         for i in range(batch_size):
             a, b = segment * i, segment * (i + 1)
-
             cumsum = random.uniform(a, b)
             tree_idx, priority, sample_idx = self.tree.get(cumsum)
             P[i] = priority
@@ -72,10 +71,10 @@ class PrioritizedReplayMemory(Memory):
         if isinstance(td_errors, torch.Tensor):
             td_errors = td_errors.detach().cpu().numpy()
 
-        for data_idx, td in zip(idxs, td_errors):
+        for idx, td in zip(idxs, td_errors):
             td = (td[0] + self.eps) ** self.alpha
 
-            self.tree.update(data_idx, td)
+            self.tree.update(idx, td)
             self.max_priority = max(self.max_priority, td)
 
     def __len__(self):
